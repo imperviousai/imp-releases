@@ -7,7 +7,7 @@ TODO
 
 ## Docs
 
-Markdown docs for the API's may be viewable in `/dbcs` for each service. There is a nice format of these docs imported into https://docs.impervious.ai as well.
+Markdown docs for the API's may be viewable in `/docs` for each service. There is a nice format of these docs imported into https://docs.impervious.ai as well.
 
 You may also see the docs on your Imp deamon by accessing it through the http proxy. By default: `localhost:8882/docs`
 
