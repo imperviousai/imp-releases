@@ -1,0 +1,74 @@
+/// Allows an Imp node to sign and verify messaging with the connected LND
+syntax = 'proto3';
+
+package signing;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "Signing Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+service Signing {
+	rpc SignMessage(SignRequest) returns (SignResponse) {
+		option (google.api.http) = {
+			post: "/v1/sign"
+			body: "*"
+		};
+	}
+
+	rpc VerifySignature(VerifyRequest) returns (VerifyResponse) {
+		option (google.api.http) = {
+			post: "/v1/verify"
+			body: "*"
+		};
+	}
+}
+
+/**
+ * Represents a request to sign a message
+ */
+message SignRequest {
+	string msg = 1; // message to be signed
+}
+
+/**
+ * Represents a response from a signature request
+ */
+message SignResponse {
+	string signature = 1; // signature of signed message returned from LND
+}
+
+/**
+ * Represents a request to verify a signature and message
+ */
+message VerifyRequest {
+	string msg = 1; // message to be verified
+	string signature = 2; // signature of message
+}
+
+/**
+ * Represents a response back from a verification request
+ */
+message VerifyResponse {
+	bool result = 1; // result of signature verification
+}

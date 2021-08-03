@@ -1,0 +1,56 @@
+/// Allows for receiving messages from your IMP node
+syntax = 'proto3';
+
+package websocket;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "Websocket Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+service Websocket {
+	rpc Subscribe(SubscribeRequest) returns (stream SubscribeResponse) {
+		option (google.api.http) = {
+			get: "/v1/subscribe"
+		};
+	}
+}
+
+/**
+ * Represents a request to subscribe to the event websocket
+ */
+message SubscribeRequest {
+
+}
+
+/**
+ * Represents a response back from the websocket containing event information
+ */
+message SubscribeResponse {
+	string id = 1;
+	string reply_to_id = 2;
+	string from_pubkey = 3;
+	string data = 4;
+	string service_type = 5;
+	int64 amount = 6;
+}

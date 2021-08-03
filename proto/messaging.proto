@@ -1,0 +1,53 @@
+/// Allows for p2p messaging between Impervious nodes
+syntax = 'proto3';
+
+package messaging;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "Messaging Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+service Messaging {
+	rpc SendMessage(SendMessageRequest) returns (SendMessageResponse) {
+		option (google.api.http) = {
+			post: "/v1/message/send"
+			body: "*"
+		};
+	}
+}
+
+/**
+ * Represents a message send to a far end node
+ */
+message SendMessageRequest {
+	string msg = 1; // the raw message itself to be sent to the far end node
+	string pubkey = 2; // The public key of the far end LND node running IMP
+}
+
+/**
+ * Represents a response back from a sent message
+ */
+message SendMessageResponse {
+	string id = 1; // returned message ID
+}

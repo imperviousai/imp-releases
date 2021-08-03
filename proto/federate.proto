@@ -1,0 +1,80 @@
+/// Allows for p2p federation between Impervious nodes
+syntax = 'proto3';
+
+package federate;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "Federate Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+
+service Federate {
+	/**
+	* RequestFederation performs the federation request to a specific peer.
+	*/
+	rpc RequestFederate(RequestFederateRequest) returns (RequestFederateResponse) {
+		option (google.api.http) = {
+			post: "/v1/federate/request"
+			body: "*"
+		};
+	}
+
+	/**
+	* LeaveFederation performs the removal of a federated peer (upon message receipt).
+	*/
+	rpc LeaveFederation(LeaveFederationRequest) returns (LeaveFederationResponse) {
+		option (google.api.http) = {
+			post: "/v1/federate/leave"
+			body: "*"
+		};
+	}
+}
+
+/**
+ * Represents a request to federate with a far end node
+ */
+message RequestFederateRequest {
+	string pubkey = 1; // The public key of the far end LND node running IMP
+}
+
+/**
+ * Represents a response back from a Federation Request
+ */
+message RequestFederateResponse {
+	string id = 1; // returned message ID
+}
+
+/**
+ * Represents a request to leave a federation from a far end node
+ */
+message LeaveFederationRequest {
+	string pubkey = 1; // The public key of the far end LND node running IMP
+}
+
+/**
+ * Represents a response back from a Leave Federation Request
+ */
+message LeaveFederationResponse {
+	string id = 1; // returned message ID
+}

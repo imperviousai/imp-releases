@@ -1,0 +1,95 @@
+/// Allows for p2p messaging between Impervious nodes
+syntax = 'proto3';
+
+package lightning;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "Lightning Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+service Lightning {
+	rpc GenerateInvoice(GenerateInvoiceRequest) returns (GenerateInvoiceResponse) {
+		option (google.api.http) = {
+			post: "/v1/lightning/generateinvoice"
+			body: "*"
+		};
+	}
+
+	rpc PayInvoice(PayInvoiceRequest) returns (PayInvoiceResponse) {
+		option (google.api.http) = {
+			post: "/v1/lightning/payinvoice"
+			body: "*"
+		};
+	}
+
+	rpc CheckInvoice(CheckInvoiceRequest) returns (CheckInvoiceResponse) {
+		option (google.api.http) = {
+			post: "/v1/lightning/checkinvoice"
+			body: "*"
+		};
+	}
+}
+
+/**
+ * Represents an invoice creation request from your lightning node.
+ */
+message GenerateInvoiceRequest {
+	int64 amount = 1; // The amount of satoshis you want to receive
+	string memo = 2; // The human readable memo you want the sender to see
+}
+
+/**
+ * Represents a response back from an invoice generation request.
+ */
+message GenerateInvoiceResponse {
+	string invoice = 1; // The invoice from your lightning node
+}
+
+/**
+ * Represents an invoice that will be paid by your lightning node.
+ */
+message PayInvoiceRequest {
+	string invoice = 1; // The invoice to pay
+}
+
+/**
+ * Represents a response back from the payment result.
+ */
+message PayInvoiceResponse {
+	string preimage = 1; // The preimage from the payment result, if successful
+}
+
+/**
+ * Represents an request to check an invoice.
+ */
+message CheckInvoiceRequest {
+	string invoice = 1; // The invoice to check
+}
+
+/**
+ * Represents a response back from the invoice check.
+ */
+message CheckInvoiceResponse {
+	bool paid = 1; // The boolean result representing whether or not the invoice was paid
+}

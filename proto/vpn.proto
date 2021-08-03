@@ -1,0 +1,98 @@
+/// Allows for an Encrypted Wireguard VPN between Impervious nodes
+syntax = 'proto3';
+
+package vpn;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "VPN Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+service VPN {
+    rpc RequestQuote(RequestQuoteRequest) returns (RequestQuoteResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpn/quote"
+            body: "*"
+        };
+    }
+
+    rpc AcceptContract(AcceptContractRequest) returns (AcceptContractResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpn/contract"
+            body: "*"
+        };
+    }
+
+    rpc RefreshContract(RefreshContractRequest) returns (RefreshContractResponse) {
+        option (google.api.http) = {
+            post: "/v1/vpn/refresh"
+            body: "*"
+        };
+    }
+}
+
+/**
+ * Represents a request to receive a VPN quote from a far end node
+ */
+message RequestQuoteRequest {
+    string pubkey = 1; // The public key of the far end LND node running IMP
+}
+
+/**
+ * Represents a response back from a VPN Quote Reqeust
+ */
+message RequestQuoteResponse {
+	string id = 1; // returned message ID
+}
+
+/**
+ * Represents a request to Accept (Pay For) a VPN Quote
+ */
+message AcceptContractRequest {
+    string pubkey = 1; // The public key of the far end LND node running IMP
+    string nonce = 2; // the identifier from a requested VPN quote
+    string price = 3; // the agreed upon price from the VPN quote
+}
+
+/**
+ * Represents a response back from an accepted VPN Quote
+ */
+message AcceptContractResponse {
+	string id = 1; // returned message ID
+}
+
+/**
+ * Represents a request to extend/refresh an expiring VPN Connection (i.e. purchase more time)
+ */
+message RefreshContractRequest {
+    string pubkey = 1; // The public key of the far end LND node running IMP
+    string nonce = 2; // the identifier of the VPN connection
+    string price = 3; // the agreed upon price from the VPN quote
+}
+
+/**
+ * Represents a reponse back from a refreshed VPN connection
+ */
+message RefreshContractResponse {
+	string id = 1; // returned message ID
+}

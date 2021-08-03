@@ -1,0 +1,94 @@
+/// Allows for p2p sockets to be established between Impervious nodes
+syntax = 'proto3';
+
+package socket;
+
+option go_package = "github.com/imperviousai/freeimp/gen";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info: {
+		title: "Socket Services";
+		version: "1.0";
+		contact: {
+			name: "Impervious AI";
+			url: "https://impervious.ai";
+		};
+	};
+	external_docs: {
+		url: "https://github.com/imperviousai/imp-releases";
+		description: "Documentation on IMP";
+	}
+	schemes: HTTP;
+	schemes: HTTPS;
+	schemes: WSS;
+	consumes: "application/json";
+	produces: "application/json";
+};
+
+service Socket {
+	rpc SendSocket(SendSocketRequest) returns (SendSocketResponse) {
+		option (google.api.http) = {
+			post: "/v1/socket/sendRequest"
+			body: "*"
+		};
+	}
+
+	rpc StartSocket(StartSocketRequest) returns (StartSocketResponse) {
+		option (google.api.http) = {
+			post: "/v1/socket/start"
+			body: "*"
+		};
+	}
+
+	rpc StopSocket(StopSocketRequest) returns (StopSocketResponse) {
+		option (google.api.http) = {
+			post: "/v1/socket/stop"
+			body: "*"
+		};
+	}
+}
+
+/**
+ * Represents a request to send socket connection information to a far end node
+ */
+message SendSocketRequest {
+	string pubkey = 1; // The public key of the far end LND node running IMP
+}
+
+/**
+ * Represents a response back from the request to establish a socket
+ */
+message SendSocketResponse {
+	string id = 1; // returned message ID
+}
+
+/**
+ * Represents a request to start a socket on an owned IMP node
+ */
+message StartSocketRequest {
+}
+
+/**
+ * Represents a response containing socket information from a started socket
+ */
+message StartSocketResponse {
+	string protocol = 1; // the protocol of the socket connection
+	string ip = 2; // the ip of the IMP node to connect to
+	string port1 = 3; // the first port of the socket connection
+	string port2 = 4; // the second port of the socket connection
+}
+
+/**
+ * Represents a request to stop a socket on an owned IMP node
+ */
+message StopSocketRequest {
+}
+
+/**
+ * Represents a response back from a stopped socket
+ */
+message StopSocketResponse {
+}

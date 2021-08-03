@@ -1,0 +1,56 @@
+# Server configurations
+server:
+  enabled: true # enable the GRPC/HTTP/websocket server
+  grpc_addr: 127.0.0.1:8881 #IP:port for GRPC
+  http_addr: 127.0.0.1:8882 #IP:port for HTTP/websocket
+# Redis DB configurations
+sqlite3:
+  username: admin
+  password: supersecretpassword # this will get moved to environment variable or generated dynamically
+###### DO NOT EDIT THE BELOW SECTION#####
+# Services
+service_list:
+  - service_type: federate
+    active: true
+    custom_record_number: 100000
+    additional_service_data:
+  - service_type: vpn
+    active: true
+    custom_record_number: 200000
+    additional_service_data:
+  - service_type: message
+    active: true
+    custom_record_number: 400000
+    additional_service_data:
+  - service_type: socket
+    active: true
+    custom_record_number: 500000
+    additional_service_data:
+  - service_type: sign
+    active: true
+    custom_record_number: 800000
+    additional_service_data:
+###### DO NOT EDIT THE ABOVE SECTION#####
+
+# Lightning
+lightning:
+  lnd_node:
+    ip: 127.0.0.1 #IP of your LND node
+    port: 10001 #GRPC port of your LND node
+    pub_key: asdfasdfasdf #get your LND pubkey with "lncli getinfo"
+    tls_cert: /path/to/tls.cert
+    admin_macaroon: /path/to/admin.macaroon
+federate:
+  ttl: 31560000 #Federation auto delete in seconds
+  imp_id: YOUR_IMP_ID #plain text string of your IMP node name
+vpn:
+  price: 100 #per hour
+  server_ip: 127.0.0.1 #public IP of your VPN server
+  server_port: 51820 #port you want to listen on
+  subnet: 10.0.0.0/24 #subnet you want to give to your clients. .1 == your server IP.
+  server_pub_key: asdfasdfasdf #get this from your WG public key file
+  allowed_ips: 0.0.0.0/0 #what subnets clients can reach. Default is entire world.
+  binary_path: /usr/bin/wg #where your installed the "wg" command.
+  dns: 8.8.8.8 #set your preferred DNS server here.
+socket:
+  server_ip: 1.1.1.1 #public IP of your socket server
