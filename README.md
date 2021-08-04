@@ -4,7 +4,7 @@ This is the repository for impervious releases and supporting files and document
 
 ## Binaries
 
-The binaries are now released and the latest versions can be found in the release/tag section [https://github.com/imperviousai/imp-releases/releases](here) in github. Find the version meant for your operating system and download. 
+The binaries are now released and the latest versions can be found in the release/tag section [https://github.com/imperviousai/imp-releases/releases](https://github.com/imperviousai/imp-releases/releases) in github. Find the version meant for your operating system and download. 
 
 If you are on Mac, it may get flagged as unverified. You can shift+right click on the application and open it to approve it once. Close it and then run it normally from the command line, passing in your config.
 
