@@ -3,7 +3,16 @@
 This is the repository for impervious releases and supporting files and documentation.
 
 ## Binaries
-TODO
+
+The binaries are now released and the latest versions can be found in the release/tag section [https://github.com/imperviousai/imp-releases/releases](here) in github. Find the version meant for your operating system and download. 
+
+If you are on Mac, it may get flagged as unverified. You can shift+right click on the application and open it to approve it once. Close it and then run it normally from the command line, passing in your config.
+
+## Sample Config 
+
+We have a base config file you may build off of to run with your Imp deamon. Copy `config.yml` to a location next to your deamon, fill in the blanks, and you can run with `./impervious --config=config.yml`.
+
+More info on the config can be found here: https://docs.impervious.ai/#impervious-node-configuration 
 
 ## Docs
 
@@ -20,10 +29,3 @@ The Imp daemon API's can be accessible with both GRPC and HTTP. For accessing vi
 We also supply OpenAPIv2 files so that you may import them into your own tools, whether that's postman or something like https://editor.swagger.io
 
 These files are split up by service and can be accessible at `/openapiv2/`
-
-## Sample Config 
-
-We have a base config file you may build off of to run with your Imp deamon. Copy `config.yml` to a location next to your deamon, fill in the blanks, and you can run with `impd --config=config.yml`.
-
-More info on the config can be found here: https://docs.impervious.ai/#impervious-node-configuration 
-
