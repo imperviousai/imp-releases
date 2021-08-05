@@ -165,7 +165,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

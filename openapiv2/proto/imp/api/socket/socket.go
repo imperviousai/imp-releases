@@ -30,6 +30,7 @@ var SwaggerJSON = `
   "paths": {
     "/v1/socket/sendRequest": {
       "post": {
+        "summary": "*\nSendSocket sends a socket request to another node.",
         "operationId": "Socket_SendSocket",
         "responses": {
           "200": {
@@ -62,6 +63,7 @@ var SwaggerJSON = `
     },
     "/v1/socket/start": {
       "post": {
+        "summary": "*\nStartSocket starts the socket on your Impervious node.",
         "operationId": "Socket_StartSocket",
         "responses": {
           "200": {
@@ -94,6 +96,7 @@ var SwaggerJSON = `
     },
     "/v1/socket/stop": {
       "post": {
+        "summary": "*\nStopSocket stops the socket on your Impervious node.",
         "operationId": "Socket_StopSocket",
         "responses": {
           "200": {
@@ -207,7 +210,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

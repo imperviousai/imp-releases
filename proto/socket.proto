@@ -18,7 +18,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 		};
 	};
 	external_docs: {
-		url: "https://github.com/imperviousai/imp-releases";
+		url: "https://docs.impervious.ai";
 		description: "Documentation on IMP";
 	}
 	schemes: HTTP;
@@ -28,7 +28,14 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 	produces: "application/json";
 };
 
+/**
+* Socket service allows for p2p sockets to be established between Impervious nodes.
+*/
 service Socket {
+
+	/**
+	* SendSocket sends a socket request to another node.
+	*/
 	rpc SendSocket(SendSocketRequest) returns (SendSocketResponse) {
 		option (google.api.http) = {
 			post: "/v1/socket/sendRequest"
@@ -36,6 +43,9 @@ service Socket {
 		};
 	}
 
+	/**
+	* StartSocket starts the socket on your Impervious node.
+	*/
 	rpc StartSocket(StartSocketRequest) returns (StartSocketResponse) {
 		option (google.api.http) = {
 			post: "/v1/socket/start"
@@ -43,6 +53,9 @@ service Socket {
 		};
 	}
 
+	/**
+	* StopSocket stops the socket on your Impervious node.
+	*/
 	rpc StopSocket(StopSocketRequest) returns (StopSocketResponse) {
 		option (google.api.http) = {
 			post: "/v1/socket/stop"

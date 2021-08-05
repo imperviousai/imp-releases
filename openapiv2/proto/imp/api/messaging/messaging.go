@@ -30,6 +30,7 @@ var SwaggerJSON = `
   "paths": {
     "/v1/message/send": {
       "post": {
+        "summary": "*\nSendMessage sends a text message to another node.",
         "operationId": "Messaging_SendMessage",
         "responses": {
           "200": {
@@ -70,6 +71,10 @@ var SwaggerJSON = `
         },
         "pubkey": {
           "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "format": "int64"
         }
       },
       "title": "*\nRepresents a message send to a far end node"
@@ -116,7 +121,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

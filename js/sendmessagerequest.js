@@ -71,7 +71,8 @@ proto.messaging.SendMessageRequest.prototype.toObject = function(opt_includeInst
 proto.messaging.SendMessageRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     msg: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    pubkey: jspb.Message.getFieldWithDefault(msg, 2, "")
+    pubkey: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    amount: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -116,6 +117,10 @@ proto.messaging.SendMessageRequest.deserializeBinaryFromReader = function(msg, r
       var value = /** @type {string} */ (reader.readString());
       msg.setPubkey(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAmount(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -159,6 +164,13 @@ proto.messaging.SendMessageRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
+  f = message.getAmount();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -198,3 +210,19 @@ proto.messaging.SendMessageRequest.prototype.setPubkey = function(value) {
 };
 
 
+/**
+ * optional int64 amount = 3;
+ * @return {number}
+ */
+proto.messaging.SendMessageRequest.prototype.getAmount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.messaging.SendMessageRequest} returns this
+ */
+proto.messaging.SendMessageRequest.prototype.setAmount = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};

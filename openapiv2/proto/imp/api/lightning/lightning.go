@@ -30,6 +30,7 @@ var SwaggerJSON = `
   "paths": {
     "/v1/lightning/checkinvoice": {
       "post": {
+        "summary": "*\nCheckInvoice allows you to check a specific invoice to see if it was paid.",
         "operationId": "Lightning_CheckInvoice",
         "responses": {
           "200": {
@@ -62,6 +63,7 @@ var SwaggerJSON = `
     },
     "/v1/lightning/generateinvoice": {
       "post": {
+        "summary": "*\nGenerateInvoice allows you to generate an invoice for a specific payment amount from your lightning node.",
         "operationId": "Lightning_GenerateInvoice",
         "responses": {
           "200": {
@@ -94,6 +96,7 @@ var SwaggerJSON = `
     },
     "/v1/lightning/payinvoice": {
       "post": {
+        "summary": "*\nPayInvoice allows you to pay a specific invoice with your lightning node.",
         "operationId": "Lightning_PayInvoice",
         "responses": {
           "200": {
@@ -217,7 +220,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

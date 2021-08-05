@@ -30,6 +30,7 @@ var SwaggerJSON = `
   "paths": {
     "/v1/subscribe": {
       "get": {
+        "summary": "*\nSubscribe opens up a stream/websocket to receive all messages received on your Impervious node.",
         "operationId": "Websocket_Subscribe",
         "responses": {
           "200": {
@@ -119,7 +120,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

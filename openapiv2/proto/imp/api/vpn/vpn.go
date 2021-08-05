@@ -30,6 +30,7 @@ var SwaggerJSON = `
   "paths": {
     "/v1/vpn/contract": {
       "post": {
+        "summary": "*\nAcceptContract accepts and pays for a specific contract.",
         "operationId": "VPN_AcceptContract",
         "responses": {
           "200": {
@@ -62,6 +63,7 @@ var SwaggerJSON = `
     },
     "/v1/vpn/quote": {
       "post": {
+        "summary": "*\nRequestQuote requests a quote from another node.",
         "operationId": "VPN_RequestQuote",
         "responses": {
           "200": {
@@ -94,6 +96,7 @@ var SwaggerJSON = `
     },
     "/v1/vpn/refresh": {
       "post": {
+        "summary": "*\nRefreshContract accepts and pays for a specific contract refresh on an existing VPN.",
         "operationId": "VPN_RefreshContract",
         "responses": {
           "200": {
@@ -225,7 +228,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

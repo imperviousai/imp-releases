@@ -18,7 +18,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 		};
 	};
 	external_docs: {
-		url: "https://github.com/imperviousai/imp-releases";
+		url: "https://docs.impervious.ai";
 		description: "Documentation on IMP";
 	}
 	schemes: HTTP;
@@ -29,6 +29,9 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 
+/**
+* Federate service allows for P2P federation between Impervious nodes.
+*/
 service Federate {
 	/**
 	* RequestFederation performs the federation request to a specific peer.

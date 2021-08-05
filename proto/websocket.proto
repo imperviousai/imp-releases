@@ -18,7 +18,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 		};
 	};
 	external_docs: {
-		url: "https://github.com/imperviousai/imp-releases";
+		url: "https://docs.impervious.ai";
 		description: "Documentation on IMP";
 	}
 	schemes: HTTP;
@@ -28,7 +28,13 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 	produces: "application/json";
 };
 
+/**
+* Websocket service allows for receiving messages received into your Impervious node.
+*/
 service Websocket {
+	/**
+	* Subscribe opens up a stream/websocket to receive all messages received on your Impervious node.
+	*/
 	rpc Subscribe(SubscribeRequest) returns (stream SubscribeResponse) {
 		option (google.api.http) = {
 			get: "/v1/subscribe"
@@ -47,10 +53,10 @@ message SubscribeRequest {
  * Represents a response back from the websocket containing event information
  */
 message SubscribeResponse {
-	string id = 1;
-	string reply_to_id = 2;
-	string from_pubkey = 3;
-	string data = 4;
-	string service_type = 5;
-	int64 amount = 6;
+	string id = 1; // The ID of the message
+	string reply_to_id = 2; // Optional ID of the message the sender is replying to
+	string from_pubkey = 3; // The node that sent the message
+	string data = 4; // The data the node is sending over
+	string service_type = 5; // The type of service the message is meant for
+	int64 amount = 6; // The amount sent as part of the message
 }

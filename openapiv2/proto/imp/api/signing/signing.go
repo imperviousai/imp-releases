@@ -30,6 +30,7 @@ var SwaggerJSON = `
   "paths": {
     "/v1/sign": {
       "post": {
+        "summary": "*\nSignMessage signs a message with your node's private key.",
         "operationId": "Signing_SignMessage",
         "responses": {
           "200": {
@@ -62,6 +63,7 @@ var SwaggerJSON = `
     },
     "/v1/verify": {
       "post": {
+        "summary": "*\nVerifymessage verifies a message was signed from another node.",
         "operationId": "Signing_VerifySignature",
         "responses": {
           "200": {
@@ -166,7 +168,7 @@ var SwaggerJSON = `
   },
   "externalDocs": {
     "description": "Documentation on IMP",
-    "url": "https://github.com/imperviousai/imp-releases"
+    "url": "https://docs.impervious.ai"
   }
 }
 `

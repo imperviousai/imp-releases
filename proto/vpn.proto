@@ -18,7 +18,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 		};
 	};
 	external_docs: {
-		url: "https://github.com/imperviousai/imp-releases";
+		url: "https://docs.impervious.ai";
 		description: "Documentation on IMP";
 	}
 	schemes: HTTP;
@@ -28,27 +28,39 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 	produces: "application/json";
 };
 
+/**
+* VPN service allows for an Encrypted Wireguard VPN between Impervious nodes.
+*/
 service VPN {
-    rpc RequestQuote(RequestQuoteRequest) returns (RequestQuoteResponse) {
-        option (google.api.http) = {
-            post: "/v1/vpn/quote"
-            body: "*"
-        };
-    }
+	/**
+	* RequestQuote requests a quote from another node.
+	*/
+    	rpc RequestQuote(RequestQuoteRequest) returns (RequestQuoteResponse) {
+        	option (google.api.http) = {
+            	post: "/v1/vpn/quote"
+            	body: "*"
+        	};
+    	}
 
-    rpc AcceptContract(AcceptContractRequest) returns (AcceptContractResponse) {
-        option (google.api.http) = {
-            post: "/v1/vpn/contract"
-            body: "*"
-        };
-    }
+	/**
+	* AcceptContract accepts and pays for a specific contract.
+	*/
+    	rpc AcceptContract(AcceptContractRequest) returns (AcceptContractResponse) {
+        	option (google.api.http) = {
+            	post: "/v1/vpn/contract"
+            	body: "*"
+        	};
+    	}
 
-    rpc RefreshContract(RefreshContractRequest) returns (RefreshContractResponse) {
-        option (google.api.http) = {
-            post: "/v1/vpn/refresh"
-            body: "*"
-        };
-    }
+	/**
+	* RefreshContract accepts and pays for a specific contract refresh on an existing VPN.
+	*/
+    	rpc RefreshContract(RefreshContractRequest) returns (RefreshContractResponse) {
+        	option (google.api.http) = {
+            	post: "/v1/vpn/refresh"
+            	body: "*"
+        	};
+    	}
 }
 
 /**

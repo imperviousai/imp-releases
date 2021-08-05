@@ -18,7 +18,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 		};
 	};
 	external_docs: {
-		url: "https://github.com/imperviousai/imp-releases";
+		url: "https://docs.impervious.ai";
 		description: "Documentation on IMP";
 	}
 	schemes: HTTP;
@@ -28,7 +28,13 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 	produces: "application/json";
 };
 
+/**
+* Lightning service allows lightning actions on your underlying lightning node from the Impervious node.
+*/
 service Lightning {
+	/**
+	* GenerateInvoice allows you to generate an invoice for a specific payment amount from your lightning node.
+	*/
 	rpc GenerateInvoice(GenerateInvoiceRequest) returns (GenerateInvoiceResponse) {
 		option (google.api.http) = {
 			post: "/v1/lightning/generateinvoice"
@@ -36,6 +42,9 @@ service Lightning {
 		};
 	}
 
+	/**
+	* PayInvoice allows you to pay a specific invoice with your lightning node.
+	*/
 	rpc PayInvoice(PayInvoiceRequest) returns (PayInvoiceResponse) {
 		option (google.api.http) = {
 			post: "/v1/lightning/payinvoice"
@@ -43,6 +52,9 @@ service Lightning {
 		};
 	}
 
+	/**
+	* CheckInvoice allows you to check a specific invoice to see if it was paid.
+	*/
 	rpc CheckInvoice(CheckInvoiceRequest) returns (CheckInvoiceResponse) {
 		option (google.api.http) = {
 			post: "/v1/lightning/checkinvoice"

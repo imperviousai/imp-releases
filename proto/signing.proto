@@ -18,7 +18,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 		};
 	};
 	external_docs: {
-		url: "https://github.com/imperviousai/imp-releases";
+		url: "https://docs.impervious.ai";
 		description: "Documentation on IMP";
 	}
 	schemes: HTTP;
@@ -28,7 +28,13 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 	produces: "application/json";
 };
 
+/**
+* Signing service allows an Imp node to sign and verify messages with the connected lightning node.
+*/
 service Signing {
+	/**
+	* SignMessage signs a message with your node's private key.
+	*/
 	rpc SignMessage(SignRequest) returns (SignResponse) {
 		option (google.api.http) = {
 			post: "/v1/sign"
@@ -36,6 +42,9 @@ service Signing {
 		};
 	}
 
+	/**
+	* Verifymessage verifies a message was signed from another node.
+	*/
 	rpc VerifySignature(VerifyRequest) returns (VerifyResponse) {
 		option (google.api.http) = {
 			post: "/v1/verify"
@@ -55,7 +64,7 @@ message SignRequest {
  * Represents a response from a signature request
  */
 message SignResponse {
-	string signature = 1; // signature of signed message returned from LND
+	string signature = 1; // signature of signed message
 }
 
 /**
