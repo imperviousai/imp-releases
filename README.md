@@ -8,6 +8,10 @@ The binaries are now released and the latest versions can be found in the releas
 
 If you are on Mac, it may get flagged as unverified. You can shift+right click on the application and open it to approve it once. Close it and then run it normally from the command line, passing in your config.
 
+## Docker
+
+Instead of the binaries, you may use Docker with the binaries already loaded in. Just create your config file, set a few necessary lines specific to Docker, and you're ready to go just as if you were running the binary normally on your computer. Follow the instructions for that [here](https://hub.docker.com/r/impant/imp-releases). 
+
 ## Sample Config 
 
 We have a base config file you may build off of to run with your Imp deamon. Copy `config.yml` to a location next to your deamon, fill in the blanks, and you can run with `./impervious --config=config.yml`.
