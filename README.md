@@ -26,7 +26,21 @@ You may also see the docs on your Imp deamon by accessing it through the http pr
 
 ## GRPC 
 
-The Imp daemon API's can be accessible with both GRPC and HTTP. For accessing via GRPC, you may utilize the proto files located at `/proto/` of this repo. We have also generated a few client libraries so you can get started much faster by using them in your project. For now we support: `go` & `js` but if there's another language you'd like generated client libraries for, please let us know.
+The Imp daemon API's can be accessible with both GRPC and HTTP. For accessing via GRPC, you may utilize the proto files located at `/proto/` of this repo. We have also generated a few client libraries so you can get started much faster by using them in your project. For now we support: `go`, `rust`, & `js` but if there's another language you'd like generated client libraries for, please let us know.
+
+You can test out grpc from the command line to make sure it is working. Install [grpcurl](https://github.com/fullstorydev/grpcurl) and you can run an example command from this repo directory.
+
+```
+grpcurl -plaintext -import-path ./proto -proto ./proto/messaging.proto -d @ 127.0.0.1:8881 messaging.Messaging.SendMessage <<EOM
+{
+  "amount": 1234,
+  "msg": "test123",
+  "pubkey": "03ed306a57ae78941d8204bdda314560eb1651ff18d727404e93d639cc885eb03d"
+}
+EOM
+```
+
+Replace that pubkey with one of your other node's pubkeys (not the one you are accessing via grpc). Or you may leave it but you'll get a generic GRPC error, which is fine because at least you know grpc works. 
 
 ## OpenAPI
 
