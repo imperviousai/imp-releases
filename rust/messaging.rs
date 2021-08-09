@@ -29,6 +29,7 @@ pub struct SendMessageRequest {
     pub msg: ::std::string::String,
     pub pubkey: ::std::string::String,
     pub amount: i64,
+    pub reply_to_id: ::std::string::String,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
@@ -111,6 +112,32 @@ impl SendMessageRequest {
     pub fn set_amount(&mut self, v: i64) {
         self.amount = v;
     }
+
+    // string reply_to_id = 4;
+
+
+    pub fn get_reply_to_id(&self) -> &str {
+        &self.reply_to_id
+    }
+    pub fn clear_reply_to_id(&mut self) {
+        self.reply_to_id.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_reply_to_id(&mut self, v: ::std::string::String) {
+        self.reply_to_id = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_reply_to_id(&mut self) -> &mut ::std::string::String {
+        &mut self.reply_to_id
+    }
+
+    // Take field
+    pub fn take_reply_to_id(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.reply_to_id, ::std::string::String::new())
+    }
 }
 
 impl ::protobuf::Message for SendMessageRequest {
@@ -135,6 +162,9 @@ impl ::protobuf::Message for SendMessageRequest {
                     let tmp = is.read_int64()?;
                     self.amount = tmp;
                 },
+                4 => {
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.reply_to_id)?;
+                },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
                 },
@@ -156,6 +186,9 @@ impl ::protobuf::Message for SendMessageRequest {
         if self.amount != 0 {
             my_size += ::protobuf::rt::value_size(3, self.amount, ::protobuf::wire_format::WireTypeVarint);
         }
+        if !self.reply_to_id.is_empty() {
+            my_size += ::protobuf::rt::string_size(4, &self.reply_to_id);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -170,6 +203,9 @@ impl ::protobuf::Message for SendMessageRequest {
         }
         if self.amount != 0 {
             os.write_int64(3, self.amount)?;
+        }
+        if !self.reply_to_id.is_empty() {
+            os.write_string(4, &self.reply_to_id)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -224,6 +260,11 @@ impl ::protobuf::Message for SendMessageRequest {
                 |m: &SendMessageRequest| { &m.amount },
                 |m: &mut SendMessageRequest| { &mut m.amount },
             ));
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
+                "reply_to_id",
+                |m: &SendMessageRequest| { &m.reply_to_id },
+                |m: &mut SendMessageRequest| { &mut m.reply_to_id },
+            ));
             ::protobuf::reflect::MessageDescriptor::new_pb_name::<SendMessageRequest>(
                 "SendMessageRequest",
                 fields,
@@ -243,6 +284,7 @@ impl ::protobuf::Clear for SendMessageRequest {
         self.msg.clear();
         self.pubkey.clear();
         self.amount = 0;
+        self.reply_to_id.clear();
         self.unknown_fields.clear();
     }
 }
@@ -421,49 +463,53 @@ impl ::protobuf::reflect::ProtobufValue for SendMessageResponse {
 static file_descriptor_proto_data: &'static [u8] = b"\
     \n'proto/imp/api/messaging/messaging.proto\x12\tmessaging\x1a\x1cgoogle/\
     api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\
-    \"V\n\x12SendMessageRequest\x12\x10\n\x03msg\x18\x01\x20\x01(\tR\x03msg\
+    \"v\n\x12SendMessageRequest\x12\x10\n\x03msg\x18\x01\x20\x01(\tR\x03msg\
     \x12\x16\n\x06pubkey\x18\x02\x20\x01(\tR\x06pubkey\x12\x16\n\x06amount\
-    \x18\x03\x20\x01(\x03R\x06amount\"%\n\x13SendMessageResponse\x12\x0e\n\
-    \x02id\x18\x01\x20\x01(\tR\x02id2v\n\tMessaging\x12i\n\x0bSendMessage\
-    \x12\x1d.messaging.SendMessageRequest\x1a\x1e.messaging.SendMessageRespo\
-    nse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/message/send:\x01*B\xc9\x01Z#\
-    github.com/imperviousai/freeimp/gen\x92A\xa0\x01\x12A\n\x12Messaging\x20\
-    Services\"&\n\rImpervious\x20AI\x12\x15https://impervious.ai2\x031.0*\
-    \x03\x01\x02\x042\x10application/json:\x10application/jsonr2\n\x14Docume\
-    ntation\x20on\x20IMP\x12\x1ahttps://docs.impervious.aiJ\xd3\x07\n\x06\
-    \x12\x04\x01\0;\x01\n>\n\x01\x0c\x12\x03\x01\0\x12\x1a4/\x20Allows\x20fo\
-    r\x20p2p\x20messaging\x20between\x20Impervious\x20nodes\n\n\x08\n\x01\
-    \x02\x12\x03\x03\0\x12\n\x08\n\x01\x08\x12\x03\x05\0:\n\t\n\x02\x08\x0b\
-    \x12\x03\x05\0:\n\t\n\x02\x03\0\x12\x03\x07\0&\n\t\n\x02\x03\x01\x12\x03\
-    \x08\08\n\t\n\x01\x08\x12\x04\n\0\x1c\x02\n\x0b\n\x03\x08\x92\x08\x12\
-    \x04\n\0\x1c\x02\nT\n\x02\x06\0\x12\x04!\0+\x01\x1aH*\n\x20Messaging\x20\
-    service\x20allows\x20for\x20p2p\x20messaging\x20between\x20Impervious\
-    \x20nodes.\n\n\n\n\x03\x06\0\x01\x12\x03!\x08\x11\nC\n\x04\x06\0\x02\0\
-    \x12\x04%\x08*\t\x1a5*\n\x20SendMessage\x20sends\x20a\x20text\x20message\
-    \x20to\x20another\x20node.\n\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03%\x0c\
-    \x17\n\x0c\n\x05\x06\0\x02\0\x02\x12\x03%\x18*\n\x0c\n\x05\x06\0\x02\0\
-    \x03\x12\x03%5H\n\r\n\x05\x06\0\x02\0\x04\x12\x04&\x10)\x12\n\x11\n\t\
-    \x06\0\x02\0\x04\xb0\xca\xbc\"\x12\x04&\x10)\x12\n;\n\x02\x04\0\x12\x040\
-    \04\x01\x1a/*\n\x20Represents\x20a\x20message\x20send\x20to\x20a\x20far\
-    \x20end\x20node\n\n\n\n\x03\x04\0\x01\x12\x030\x08\x1a\nD\n\x04\x04\0\
-    \x02\0\x12\x031\x08\x17\"7\x20the\x20raw\x20message\x20itself\x20to\x20b\
-    e\x20sent\x20to\x20the\x20far\x20end\x20node\n\n\x0c\n\x05\x04\0\x02\0\
-    \x05\x12\x031\x08\x0e\n\x0c\n\x05\x04\0\x02\0\x01\x12\x031\x0f\x12\n\x0c\
-    \n\x05\x04\0\x02\0\x03\x12\x031\x15\x16\nG\n\x04\x04\0\x02\x01\x12\x032\
-    \x08\x1a\":\x20The\x20public\x20key\x20of\x20the\x20far\x20end\x20lightn\
-    ing\x20node\x20running\x20IMP\n\n\x0c\n\x05\x04\0\x02\x01\x05\x12\x032\
-    \x08\x0e\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x032\x0f\x15\n\x0c\n\x05\x04\
-    \0\x02\x01\x03\x12\x032\x18\x19\nY\n\x04\x04\0\x02\x02\x12\x033\x08\x19\
-    \"L\x20Optional\x20satoshi\x20amount\x20to\x20send\x20along\x20with\x20t\
-    he\x20message,\x20defaults\x20to\x201\x20sat.\n\n\x0c\n\x05\x04\0\x02\
-    \x02\x05\x12\x033\x08\r\n\x0c\n\x05\x04\0\x02\x02\x01\x12\x033\x0e\x14\n\
-    \x0c\n\x05\x04\0\x02\x02\x03\x12\x033\x17\x18\n>\n\x02\x04\x01\x12\x049\
-    \0;\x01\x1a2*\n\x20Represents\x20a\x20response\x20back\x20from\x20a\x20s\
-    ent\x20message\n\n\n\n\x03\x04\x01\x01\x12\x039\x08\x1b\n\"\n\x04\x04\
-    \x01\x02\0\x12\x03:\x08\x16\"\x15\x20returned\x20message\x20ID\n\n\x0c\n\
-    \x05\x04\x01\x02\0\x05\x12\x03:\x08\x0e\n\x0c\n\x05\x04\x01\x02\0\x01\
-    \x12\x03:\x0f\x11\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x03:\x14\x15b\x06pro\
-    to3\
+    \x18\x03\x20\x01(\x03R\x06amount\x12\x1e\n\x0breply_to_id\x18\x04\x20\
+    \x01(\tR\treplyToId\"%\n\x13SendMessageResponse\x12\x0e\n\x02id\x18\x01\
+    \x20\x01(\tR\x02id2v\n\tMessaging\x12i\n\x0bSendMessage\x12\x1d.messagin\
+    g.SendMessageRequest\x1a\x1e.messaging.SendMessageResponse\"\x1b\x82\xd3\
+    \xe4\x93\x02\x15\"\x10/v1/message/send:\x01*B\xc9\x01Z#github.com/imperv\
+    iousai/freeimp/gen\x92A\xa0\x01\x12A\n\x12Messaging\x20Services\"&\n\rIm\
+    pervious\x20AI\x12\x15https://impervious.ai2\x031.0*\x03\x01\x02\x042\
+    \x10application/json:\x10application/jsonr2\n\x14Documentation\x20on\x20\
+    IMP\x12\x1ahttps://docs.impervious.aiJ\xca\x08\n\x06\x12\x04\x01\0<\x01\
+    \n>\n\x01\x0c\x12\x03\x01\0\x12\x1a4/\x20Allows\x20for\x20p2p\x20messagi\
+    ng\x20between\x20Impervious\x20nodes\n\n\x08\n\x01\x02\x12\x03\x03\0\x12\
+    \n\x08\n\x01\x08\x12\x03\x05\0:\n\t\n\x02\x08\x0b\x12\x03\x05\0:\n\t\n\
+    \x02\x03\0\x12\x03\x07\0&\n\t\n\x02\x03\x01\x12\x03\x08\08\n\t\n\x01\x08\
+    \x12\x04\n\0\x1c\x02\n\x0b\n\x03\x08\x92\x08\x12\x04\n\0\x1c\x02\nT\n\
+    \x02\x06\0\x12\x04!\0+\x01\x1aH*\n\x20Messaging\x20service\x20allows\x20\
+    for\x20p2p\x20messaging\x20between\x20Impervious\x20nodes.\n\n\n\n\x03\
+    \x06\0\x01\x12\x03!\x08\x11\nC\n\x04\x06\0\x02\0\x12\x04%\x08*\t\x1a5*\n\
+    \x20SendMessage\x20sends\x20a\x20text\x20message\x20to\x20another\x20nod\
+    e.\n\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03%\x0c\x17\n\x0c\n\x05\x06\0\x02\
+    \0\x02\x12\x03%\x18*\n\x0c\n\x05\x06\0\x02\0\x03\x12\x03%5H\n\r\n\x05\
+    \x06\0\x02\0\x04\x12\x04&\x10)\x12\n\x11\n\t\x06\0\x02\0\x04\xb0\xca\xbc\
+    \"\x12\x04&\x10)\x12\n;\n\x02\x04\0\x12\x040\05\x01\x1a/*\n\x20Represent\
+    s\x20a\x20message\x20send\x20to\x20a\x20far\x20end\x20node\n\n\n\n\x03\
+    \x04\0\x01\x12\x030\x08\x1a\nD\n\x04\x04\0\x02\0\x12\x031\x08\x17\"7\x20\
+    the\x20raw\x20message\x20itself\x20to\x20be\x20sent\x20to\x20the\x20far\
+    \x20end\x20node\n\n\x0c\n\x05\x04\0\x02\0\x05\x12\x031\x08\x0e\n\x0c\n\
+    \x05\x04\0\x02\0\x01\x12\x031\x0f\x12\n\x0c\n\x05\x04\0\x02\0\x03\x12\
+    \x031\x15\x16\nG\n\x04\x04\0\x02\x01\x12\x032\x08\x1a\":\x20The\x20publi\
+    c\x20key\x20of\x20the\x20far\x20end\x20lightning\x20node\x20running\x20I\
+    MP\n\n\x0c\n\x05\x04\0\x02\x01\x05\x12\x032\x08\x0e\n\x0c\n\x05\x04\0\
+    \x02\x01\x01\x12\x032\x0f\x15\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x032\x18\
+    \x19\nY\n\x04\x04\0\x02\x02\x12\x033\x08\x19\"L\x20Optional\x20satoshi\
+    \x20amount\x20to\x20send\x20along\x20with\x20the\x20message,\x20defaults\
+    \x20to\x201\x20sat.\n\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x033\x08\r\n\x0c\
+    \n\x05\x04\0\x02\x02\x01\x12\x033\x0e\x14\n\x0c\n\x05\x04\0\x02\x02\x03\
+    \x12\x033\x17\x18\nK\n\x04\x04\0\x02\x03\x12\x034\x08\x1f\">\x20Optional\
+    \x20ID\x20of\x20the\x20message\x20that\x20this\x20message\x20is\x20reply\
+    ing\x20to.\n\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x034\x08\x0e\n\x0c\n\x05\
+    \x04\0\x02\x03\x01\x12\x034\x0f\x1a\n\x0c\n\x05\x04\0\x02\x03\x03\x12\
+    \x034\x1d\x1e\n>\n\x02\x04\x01\x12\x04:\0<\x01\x1a2*\n\x20Represents\x20\
+    a\x20response\x20back\x20from\x20a\x20sent\x20message\n\n\n\n\x03\x04\
+    \x01\x01\x12\x03:\x08\x1b\n\"\n\x04\x04\x01\x02\0\x12\x03;\x08\x16\"\x15\
+    \x20returned\x20message\x20ID\n\n\x0c\n\x05\x04\x01\x02\0\x05\x12\x03;\
+    \x08\x0e\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03;\x0f\x11\n\x0c\n\x05\x04\
+    \x01\x02\0\x03\x12\x03;\x14\x15b\x06proto3\
 ";
 
 static file_descriptor_proto_lazy: ::protobuf::rt::LazyV2<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::rt::LazyV2::INIT;

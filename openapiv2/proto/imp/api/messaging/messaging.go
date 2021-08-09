@@ -75,6 +75,9 @@ var SwaggerJSON = `
         "amount": {
           "type": "string",
           "format": "int64"
+        },
+        "replyToId": {
+          "type": "string"
         }
       },
       "title": "*\nRepresents a message send to a far end node"

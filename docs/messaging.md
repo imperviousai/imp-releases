@@ -53,6 +53,7 @@ Represents a message send to a far end node
 | msg | string |  | the raw message itself to be sent to the far end node |
 | pubkey | string |  | The public key of the far end lightning node running IMP |
 | amount | int64 |  | Optional satoshi amount to send along with the message, defaults to 1 sat. |
+| reply_to_id | string |  | Optional ID of the message that this message is replying to. |
 
 
 
