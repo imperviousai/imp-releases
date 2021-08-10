@@ -47,3 +47,7 @@ Replace that pubkey with one of your other node's pubkeys (not the one you are a
 We also supply OpenAPIv2 files so that you may import them into your own tools, whether that's postman or something like https://editor.swagger.io
 
 These files are split up by service and can be accessible at `/openapiv2/`
+
+## Discord
+
+Join our discord for help, support, and to communicate with the team. https://discord.gg/5YdUJvvNuZ 
