@@ -145,7 +145,7 @@ pub struct SubscribeResponse {
     pub id: ::std::string::String,
     pub reply_to_id: ::std::string::String,
     pub from_pubkey: ::std::string::String,
-    pub data: ::std::string::String,
+    pub data: ::std::vec::Vec<u8>,
     pub service_type: ::std::string::String,
     pub amount: i64,
     // special fields
@@ -242,10 +242,10 @@ impl SubscribeResponse {
         ::std::mem::replace(&mut self.from_pubkey, ::std::string::String::new())
     }
 
-    // string data = 4;
+    // bytes data = 4;
 
 
-    pub fn get_data(&self) -> &str {
+    pub fn get_data(&self) -> &[u8] {
         &self.data
     }
     pub fn clear_data(&mut self) {
@@ -253,19 +253,19 @@ impl SubscribeResponse {
     }
 
     // Param is passed by value, moved
-    pub fn set_data(&mut self, v: ::std::string::String) {
+    pub fn set_data(&mut self, v: ::std::vec::Vec<u8>) {
         self.data = v;
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_data(&mut self) -> &mut ::std::string::String {
+    pub fn mut_data(&mut self) -> &mut ::std::vec::Vec<u8> {
         &mut self.data
     }
 
     // Take field
-    pub fn take_data(&mut self) -> ::std::string::String {
-        ::std::mem::replace(&mut self.data, ::std::string::String::new())
+    pub fn take_data(&mut self) -> ::std::vec::Vec<u8> {
+        ::std::mem::replace(&mut self.data, ::std::vec::Vec::new())
     }
 
     // string service_type = 5;
@@ -329,7 +329,7 @@ impl ::protobuf::Message for SubscribeResponse {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.from_pubkey)?;
                 },
                 4 => {
-                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.data)?;
+                    ::protobuf::rt::read_singular_proto3_bytes_into(wire_type, is, &mut self.data)?;
                 },
                 5 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.service_type)?;
@@ -363,7 +363,7 @@ impl ::protobuf::Message for SubscribeResponse {
             my_size += ::protobuf::rt::string_size(3, &self.from_pubkey);
         }
         if !self.data.is_empty() {
-            my_size += ::protobuf::rt::string_size(4, &self.data);
+            my_size += ::protobuf::rt::bytes_size(4, &self.data);
         }
         if !self.service_type.is_empty() {
             my_size += ::protobuf::rt::string_size(5, &self.service_type);
@@ -387,7 +387,7 @@ impl ::protobuf::Message for SubscribeResponse {
             os.write_string(3, &self.from_pubkey)?;
         }
         if !self.data.is_empty() {
-            os.write_string(4, &self.data)?;
+            os.write_bytes(4, &self.data)?;
         }
         if !self.service_type.is_empty() {
             os.write_string(5, &self.service_type)?;
@@ -448,7 +448,7 @@ impl ::protobuf::Message for SubscribeResponse {
                 |m: &SubscribeResponse| { &m.from_pubkey },
                 |m: &mut SubscribeResponse| { &mut m.from_pubkey },
             ));
-            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBytes>(
                 "data",
                 |m: &SubscribeResponse| { &m.data },
                 |m: &mut SubscribeResponse| { &mut m.data },
@@ -507,56 +507,56 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \"\x12\n\x10SubscribeRequest\"\xb3\x01\n\x11SubscribeResponse\x12\x0e\n\
     \x02id\x18\x01\x20\x01(\tR\x02id\x12\x1e\n\x0breply_to_id\x18\x02\x20\
     \x01(\tR\treplyToId\x12\x1f\n\x0bfrom_pubkey\x18\x03\x20\x01(\tR\nfromPu\
-    bkey\x12\x12\n\x04data\x18\x04\x20\x01(\tR\x04data\x12!\n\x0cservice_typ\
-    e\x18\x05\x20\x01(\tR\x0bserviceType\x12\x16\n\x06amount\x18\x06\x20\x01\
-    (\x03R\x06amount2l\n\tWebsocket\x12_\n\tSubscribe\x12\x1b.websocket.Subs\
-    cribeRequest\x1a\x1c.websocket.SubscribeResponse\"\x15\x82\xd3\xe4\x93\
-    \x02\x0f\x12\r/v1/subscribe0\x01B\xc9\x01Z#github.com/imperviousai/freei\
-    mp/gen\x92A\xa0\x01\x12A\n\x12Websocket\x20Services\"&\n\rImpervious\x20\
-    AI\x12\x15https://impervious.ai2\x031.0*\x03\x01\x02\x042\x10application\
-    /json:\x10application/jsonr2\n\x14Documentation\x20on\x20IMP\x12\x1ahttp\
-    s://docs.impervious.aiJ\xcc\t\n\x06\x12\x04\x01\0=\x01\n=\n\x01\x0c\x12\
-    \x03\x01\0\x12\x1a3/\x20Allows\x20for\x20receiving\x20messages\x20from\
-    \x20your\x20IMP\x20node\n\n\x08\n\x01\x02\x12\x03\x03\0\x12\n\x08\n\x01\
-    \x08\x12\x03\x05\0:\n\t\n\x02\x08\x0b\x12\x03\x05\0:\n\t\n\x02\x03\0\x12\
-    \x03\x07\0&\n\t\n\x02\x03\x01\x12\x03\x08\08\n\t\n\x01\x08\x12\x04\n\0\
-    \x1c\x02\n\x0b\n\x03\x08\x92\x08\x12\x04\n\0\x1c\x02\nc\n\x02\x06\0\x12\
-    \x04!\0*\x01\x1aW*\n\x20Websocket\x20service\x20allows\x20for\x20receivi\
-    ng\x20messages\x20received\x20into\x20your\x20Impervious\x20node.\n\n\n\
-    \n\x03\x06\0\x01\x12\x03!\x08\x11\nq\n\x04\x06\0\x02\0\x12\x04%\x08)\t\
-    \x1ac*\n\x20Subscribe\x20opens\x20up\x20a\x20stream/websocket\x20to\x20r\
-    eceive\x20all\x20messages\x20received\x20on\x20your\x20Impervious\x20nod\
-    e.\n\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03%\x0c\x15\n\x0c\n\x05\x06\0\x02\
-    \0\x02\x12\x03%\x16&\n\x0c\n\x05\x06\0\x02\0\x06\x12\x03%17\n\x0c\n\x05\
-    \x06\0\x02\0\x03\x12\x03%8I\n\r\n\x05\x06\0\x02\0\x04\x12\x04&\x10(\x12\
-    \n\x11\n\t\x06\0\x02\0\x04\xb0\xca\xbc\"\x12\x04&\x10(\x12\nH\n\x02\x04\
-    \0\x12\x04/\01\x01\x1a<*\n\x20Represents\x20a\x20request\x20to\x20subscr\
-    ibe\x20to\x20the\x20event\x20websocket\n\n\n\n\x03\x04\0\x01\x12\x03/\
-    \x08\x18\nZ\n\x02\x04\x01\x12\x046\0=\x01\x1aN*\n\x20Represents\x20a\x20\
-    response\x20back\x20from\x20the\x20websocket\x20containing\x20event\x20i\
-    nformation\n\n\n\n\x03\x04\x01\x01\x12\x036\x08\x19\n$\n\x04\x04\x01\x02\
-    \0\x12\x037\x08\x16\"\x17\x20The\x20ID\x20of\x20the\x20message\n\n\x0c\n\
-    \x05\x04\x01\x02\0\x05\x12\x037\x08\x0e\n\x0c\n\x05\x04\x01\x02\0\x01\
-    \x12\x037\x0f\x11\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x037\x14\x15\nC\n\
-    \x04\x04\x01\x02\x01\x12\x038\x08\x1f\"6\x20Optional\x20ID\x20of\x20the\
-    \x20message\x20the\x20sender\x20is\x20replying\x20to\n\n\x0c\n\x05\x04\
+    bkey\x12\x12\n\x04data\x18\x04\x20\x01(\x0cR\x04data\x12!\n\x0cservice_t\
+    ype\x18\x05\x20\x01(\tR\x0bserviceType\x12\x16\n\x06amount\x18\x06\x20\
+    \x01(\x03R\x06amount2l\n\tWebsocket\x12_\n\tSubscribe\x12\x1b.websocket.\
+    SubscribeRequest\x1a\x1c.websocket.SubscribeResponse\"\x15\x82\xd3\xe4\
+    \x93\x02\x0f\x12\r/v1/subscribe0\x01B\xc9\x01Z#github.com/imperviousai/f\
+    reeimp/gen\x92A\xa0\x01\x12A\n\x12Websocket\x20Services\"&\n\rImpervious\
+    \x20AI\x12\x15https://impervious.ai2\x031.0*\x03\x01\x02\x042\x10applica\
+    tion/json:\x10application/jsonr2\n\x14Documentation\x20on\x20IMP\x12\x1a\
+    https://docs.impervious.aiJ\xcc\t\n\x06\x12\x04\x01\0=\x01\n=\n\x01\x0c\
+    \x12\x03\x01\0\x12\x1a3/\x20Allows\x20for\x20receiving\x20messages\x20fr\
+    om\x20your\x20IMP\x20node\n\n\x08\n\x01\x02\x12\x03\x03\0\x12\n\x08\n\
+    \x01\x08\x12\x03\x05\0:\n\t\n\x02\x08\x0b\x12\x03\x05\0:\n\t\n\x02\x03\0\
+    \x12\x03\x07\0&\n\t\n\x02\x03\x01\x12\x03\x08\08\n\t\n\x01\x08\x12\x04\n\
+    \0\x1c\x02\n\x0b\n\x03\x08\x92\x08\x12\x04\n\0\x1c\x02\nc\n\x02\x06\0\
+    \x12\x04!\0*\x01\x1aW*\n\x20Websocket\x20service\x20allows\x20for\x20rec\
+    eiving\x20messages\x20received\x20into\x20your\x20Impervious\x20node.\n\
+    \n\n\n\x03\x06\0\x01\x12\x03!\x08\x11\nq\n\x04\x06\0\x02\0\x12\x04%\x08)\
+    \t\x1ac*\n\x20Subscribe\x20opens\x20up\x20a\x20stream/websocket\x20to\
+    \x20receive\x20all\x20messages\x20received\x20on\x20your\x20Impervious\
+    \x20node.\n\n\x0c\n\x05\x06\0\x02\0\x01\x12\x03%\x0c\x15\n\x0c\n\x05\x06\
+    \0\x02\0\x02\x12\x03%\x16&\n\x0c\n\x05\x06\0\x02\0\x06\x12\x03%17\n\x0c\
+    \n\x05\x06\0\x02\0\x03\x12\x03%8I\n\r\n\x05\x06\0\x02\0\x04\x12\x04&\x10\
+    (\x12\n\x11\n\t\x06\0\x02\0\x04\xb0\xca\xbc\"\x12\x04&\x10(\x12\nH\n\x02\
+    \x04\0\x12\x04/\01\x01\x1a<*\n\x20Represents\x20a\x20request\x20to\x20su\
+    bscribe\x20to\x20the\x20event\x20websocket\n\n\n\n\x03\x04\0\x01\x12\x03\
+    /\x08\x18\nZ\n\x02\x04\x01\x12\x046\0=\x01\x1aN*\n\x20Represents\x20a\
+    \x20response\x20back\x20from\x20the\x20websocket\x20containing\x20event\
+    \x20information\n\n\n\n\x03\x04\x01\x01\x12\x036\x08\x19\n$\n\x04\x04\
+    \x01\x02\0\x12\x037\x08\x16\"\x17\x20The\x20ID\x20of\x20the\x20message\n\
+    \n\x0c\n\x05\x04\x01\x02\0\x05\x12\x037\x08\x0e\n\x0c\n\x05\x04\x01\x02\
+    \0\x01\x12\x037\x0f\x11\n\x0c\n\x05\x04\x01\x02\0\x03\x12\x037\x14\x15\n\
+    C\n\x04\x04\x01\x02\x01\x12\x038\x08\x1f\"6\x20Optional\x20ID\x20of\x20t\
+    he\x20message\x20the\x20sender\x20is\x20replying\x20to\n\n\x0c\n\x05\x04\
     \x01\x02\x01\x05\x12\x038\x08\x0e\n\x0c\n\x05\x04\x01\x02\x01\x01\x12\
     \x038\x0f\x1a\n\x0c\n\x05\x04\x01\x02\x01\x03\x12\x038\x1d\x1e\n-\n\x04\
     \x04\x01\x02\x02\x12\x039\x08\x1f\"\x20\x20The\x20node\x20that\x20sent\
     \x20the\x20message\n\n\x0c\n\x05\x04\x01\x02\x02\x05\x12\x039\x08\x0e\n\
     \x0c\n\x05\x04\x01\x02\x02\x01\x12\x039\x0f\x1a\n\x0c\n\x05\x04\x01\x02\
-    \x02\x03\x12\x039\x1d\x1e\n0\n\x04\x04\x01\x02\x03\x12\x03:\x08\x18\"#\
+    \x02\x03\x12\x039\x1d\x1e\n0\n\x04\x04\x01\x02\x03\x12\x03:\x08\x17\"#\
     \x20The\x20data\x20the\x20node\x20is\x20sending\x20over\n\n\x0c\n\x05\
-    \x04\x01\x02\x03\x05\x12\x03:\x08\x0e\n\x0c\n\x05\x04\x01\x02\x03\x01\
-    \x12\x03:\x0f\x13\n\x0c\n\x05\x04\x01\x02\x03\x03\x12\x03:\x16\x17\n;\n\
-    \x04\x04\x01\x02\x04\x12\x03;\x08\x20\".\x20The\x20type\x20of\x20service\
-    \x20the\x20message\x20is\x20meant\x20for\n\n\x0c\n\x05\x04\x01\x02\x04\
-    \x05\x12\x03;\x08\x0e\n\x0c\n\x05\x04\x01\x02\x04\x01\x12\x03;\x0f\x1b\n\
-    \x0c\n\x05\x04\x01\x02\x04\x03\x12\x03;\x1e\x1f\n5\n\x04\x04\x01\x02\x05\
-    \x12\x03<\x08\x19\"(\x20The\x20amount\x20sent\x20as\x20part\x20of\x20the\
-    \x20message\n\n\x0c\n\x05\x04\x01\x02\x05\x05\x12\x03<\x08\r\n\x0c\n\x05\
-    \x04\x01\x02\x05\x01\x12\x03<\x0e\x14\n\x0c\n\x05\x04\x01\x02\x05\x03\
-    \x12\x03<\x17\x18b\x06proto3\
+    \x04\x01\x02\x03\x05\x12\x03:\x08\r\n\x0c\n\x05\x04\x01\x02\x03\x01\x12\
+    \x03:\x0e\x12\n\x0c\n\x05\x04\x01\x02\x03\x03\x12\x03:\x15\x16\n;\n\x04\
+    \x04\x01\x02\x04\x12\x03;\x08\x20\".\x20The\x20type\x20of\x20service\x20\
+    the\x20message\x20is\x20meant\x20for\n\n\x0c\n\x05\x04\x01\x02\x04\x05\
+    \x12\x03;\x08\x0e\n\x0c\n\x05\x04\x01\x02\x04\x01\x12\x03;\x0f\x1b\n\x0c\
+    \n\x05\x04\x01\x02\x04\x03\x12\x03;\x1e\x1f\n5\n\x04\x04\x01\x02\x05\x12\
+    \x03<\x08\x19\"(\x20The\x20amount\x20sent\x20as\x20part\x20of\x20the\x20\
+    message\n\n\x0c\n\x05\x04\x01\x02\x05\x05\x12\x03<\x08\r\n\x0c\n\x05\x04\
+    \x01\x02\x05\x01\x12\x03<\x0e\x14\n\x0c\n\x05\x04\x01\x02\x05\x03\x12\
+    \x03<\x17\x18b\x06proto3\
 ";
 
 static file_descriptor_proto_lazy: ::protobuf::rt::LazyV2<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::rt::LazyV2::INIT;

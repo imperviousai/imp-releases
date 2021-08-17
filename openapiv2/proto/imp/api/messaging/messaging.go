@@ -67,7 +67,8 @@ var SwaggerJSON = `
       "type": "object",
       "properties": {
         "msg": {
-          "type": "string"
+          "type": "string",
+          "format": "byte"
         },
         "pubkey": {
           "type": "string"

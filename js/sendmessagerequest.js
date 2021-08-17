@@ -70,7 +70,7 @@ proto.messaging.SendMessageRequest.prototype.toObject = function(opt_includeInst
  */
 proto.messaging.SendMessageRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    msg: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    msg: msg.getMsg_asB64(),
     pubkey: jspb.Message.getFieldWithDefault(msg, 2, ""),
     amount: jspb.Message.getFieldWithDefault(msg, 3, 0),
     replyToId: jspb.Message.getFieldWithDefault(msg, 4, "")
@@ -111,7 +111,7 @@ proto.messaging.SendMessageRequest.deserializeBinaryFromReader = function(msg, r
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setMsg(value);
       break;
     case 2:
@@ -155,9 +155,9 @@ proto.messaging.SendMessageRequest.prototype.serializeBinary = function() {
  */
 proto.messaging.SendMessageRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getMsg();
+  f = message.getMsg_asU8();
   if (f.length > 0) {
-    writer.writeString(
+    writer.writeBytes(
       1,
       f
     );
@@ -187,20 +187,44 @@ proto.messaging.SendMessageRequest.serializeBinaryToWriter = function(message, w
 
 
 /**
- * optional string msg = 1;
- * @return {string}
+ * optional bytes msg = 1;
+ * @return {!(string|Uint8Array)}
  */
 proto.messaging.SendMessageRequest.prototype.getMsg = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {string} value
+ * optional bytes msg = 1;
+ * This is a type-conversion wrapper around `getMsg()`
+ * @return {string}
+ */
+proto.messaging.SendMessageRequest.prototype.getMsg_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getMsg()));
+};
+
+
+/**
+ * optional bytes msg = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getMsg()`
+ * @return {!Uint8Array}
+ */
+proto.messaging.SendMessageRequest.prototype.getMsg_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getMsg()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
  * @return {!proto.messaging.SendMessageRequest} returns this
  */
 proto.messaging.SendMessageRequest.prototype.setMsg = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3BytesField(this, 1, value);
 };
 
 

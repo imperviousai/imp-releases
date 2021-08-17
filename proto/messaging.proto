@@ -47,7 +47,7 @@ service Messaging {
  * Represents a message send to a far end node
  */
 message SendMessageRequest {
-	string msg = 1; // the raw message itself to be sent to the far end node
+	bytes msg = 1; // the raw message itself to be sent to the far end node
 	string pubkey = 2; // The public key of the far end lightning node running IMP
 	int64 amount = 3; // Optional satoshi amount to send along with the message, defaults to 1 sat.
 	string reply_to_id = 4; // Optional ID of the message that this message is replying to.

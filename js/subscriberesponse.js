@@ -73,7 +73,7 @@ proto.websocket.SubscribeResponse.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
     replyToId: jspb.Message.getFieldWithDefault(msg, 2, ""),
     fromPubkey: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    data: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    data: msg.getData_asB64(),
     serviceType: jspb.Message.getFieldWithDefault(msg, 5, ""),
     amount: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
@@ -125,7 +125,7 @@ proto.websocket.SubscribeResponse.deserializeBinaryFromReader = function(msg, re
       msg.setFromPubkey(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setData(value);
       break;
     case 5:
@@ -186,9 +186,9 @@ proto.websocket.SubscribeResponse.serializeBinaryToWriter = function(message, wr
       f
     );
   }
-  f = message.getData();
+  f = message.getData_asU8();
   if (f.length > 0) {
-    writer.writeString(
+    writer.writeBytes(
       4,
       f
     );
@@ -265,20 +265,44 @@ proto.websocket.SubscribeResponse.prototype.setFromPubkey = function(value) {
 
 
 /**
- * optional string data = 4;
- * @return {string}
+ * optional bytes data = 4;
+ * @return {!(string|Uint8Array)}
  */
 proto.websocket.SubscribeResponse.prototype.getData = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /**
- * @param {string} value
+ * optional bytes data = 4;
+ * This is a type-conversion wrapper around `getData()`
+ * @return {string}
+ */
+proto.websocket.SubscribeResponse.prototype.getData_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getData()));
+};
+
+
+/**
+ * optional bytes data = 4;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getData()`
+ * @return {!Uint8Array}
+ */
+proto.websocket.SubscribeResponse.prototype.getData_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getData()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
  * @return {!proto.websocket.SubscribeResponse} returns this
  */
 proto.websocket.SubscribeResponse.prototype.setData = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3BytesField(this, 4, value);
 };
 
 
@@ -316,5 +340,3 @@ proto.websocket.SubscribeResponse.prototype.getAmount = function() {
 proto.websocket.SubscribeResponse.prototype.setAmount = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
 };
-
-

@@ -105,7 +105,8 @@ var SwaggerJSON = `
           "type": "string"
         },
         "data": {
-          "type": "string"
+          "type": "string",
+          "format": "byte"
         },
         "serviceType": {
           "type": "string"

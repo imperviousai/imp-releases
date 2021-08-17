@@ -63,7 +63,7 @@ Represents a response back from the websocket containing event information
 | id | string |  | The ID of the message |
 | reply_to_id | string |  | Optional ID of the message the sender is replying to |
 | from_pubkey | string |  | The node that sent the message |
-| data | string |  | The data the node is sending over |
+| data | bytes |  | The data the node is sending over |
 | service_type | string |  | The type of service the message is meant for |
 | amount | int64 |  | The amount sent as part of the message |
 

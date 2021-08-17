@@ -26,7 +26,7 @@
 #[derive(PartialEq,Clone,Default)]
 pub struct SendMessageRequest {
     // message fields
-    pub msg: ::std::string::String,
+    pub msg: ::std::vec::Vec<u8>,
     pub pubkey: ::std::string::String,
     pub amount: i64,
     pub reply_to_id: ::std::string::String,
@@ -46,10 +46,10 @@ impl SendMessageRequest {
         ::std::default::Default::default()
     }
 
-    // string msg = 1;
+    // bytes msg = 1;
 
 
-    pub fn get_msg(&self) -> &str {
+    pub fn get_msg(&self) -> &[u8] {
         &self.msg
     }
     pub fn clear_msg(&mut self) {
@@ -57,19 +57,19 @@ impl SendMessageRequest {
     }
 
     // Param is passed by value, moved
-    pub fn set_msg(&mut self, v: ::std::string::String) {
+    pub fn set_msg(&mut self, v: ::std::vec::Vec<u8>) {
         self.msg = v;
     }
 
     // Mutable pointer to the field.
     // If field is not initialized, it is initialized with default value first.
-    pub fn mut_msg(&mut self) -> &mut ::std::string::String {
+    pub fn mut_msg(&mut self) -> &mut ::std::vec::Vec<u8> {
         &mut self.msg
     }
 
     // Take field
-    pub fn take_msg(&mut self) -> ::std::string::String {
-        ::std::mem::replace(&mut self.msg, ::std::string::String::new())
+    pub fn take_msg(&mut self) -> ::std::vec::Vec<u8> {
+        ::std::mem::replace(&mut self.msg, ::std::vec::Vec::new())
     }
 
     // string pubkey = 2;
@@ -150,7 +150,7 @@ impl ::protobuf::Message for SendMessageRequest {
             let (field_number, wire_type) = is.read_tag_unpack()?;
             match field_number {
                 1 => {
-                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.msg)?;
+                    ::protobuf::rt::read_singular_proto3_bytes_into(wire_type, is, &mut self.msg)?;
                 },
                 2 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.pubkey)?;
@@ -178,7 +178,7 @@ impl ::protobuf::Message for SendMessageRequest {
     fn compute_size(&self) -> u32 {
         let mut my_size = 0;
         if !self.msg.is_empty() {
-            my_size += ::protobuf::rt::string_size(1, &self.msg);
+            my_size += ::protobuf::rt::bytes_size(1, &self.msg);
         }
         if !self.pubkey.is_empty() {
             my_size += ::protobuf::rt::string_size(2, &self.pubkey);
@@ -196,7 +196,7 @@ impl ::protobuf::Message for SendMessageRequest {
 
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
         if !self.msg.is_empty() {
-            os.write_string(1, &self.msg)?;
+            os.write_bytes(1, &self.msg)?;
         }
         if !self.pubkey.is_empty() {
             os.write_string(2, &self.pubkey)?;
@@ -245,7 +245,7 @@ impl ::protobuf::Message for SendMessageRequest {
         static descriptor: ::protobuf::rt::LazyV2<::protobuf::reflect::MessageDescriptor> = ::protobuf::rt::LazyV2::INIT;
         descriptor.get(|| {
             let mut fields = ::std::vec::Vec::new();
-            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeBytes>(
                 "msg",
                 |m: &SendMessageRequest| { &m.msg },
                 |m: &mut SendMessageRequest| { &mut m.msg },
@@ -463,8 +463,8 @@ impl ::protobuf::reflect::ProtobufValue for SendMessageResponse {
 static file_descriptor_proto_data: &'static [u8] = b"\
     \n'proto/imp/api/messaging/messaging.proto\x12\tmessaging\x1a\x1cgoogle/\
     api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\
-    \"v\n\x12SendMessageRequest\x12\x10\n\x03msg\x18\x01\x20\x01(\tR\x03msg\
-    \x12\x16\n\x06pubkey\x18\x02\x20\x01(\tR\x06pubkey\x12\x16\n\x06amount\
+    \"v\n\x12SendMessageRequest\x12\x10\n\x03msg\x18\x01\x20\x01(\x0cR\x03ms\
+    g\x12\x16\n\x06pubkey\x18\x02\x20\x01(\tR\x06pubkey\x12\x16\n\x06amount\
     \x18\x03\x20\x01(\x03R\x06amount\x12\x1e\n\x0breply_to_id\x18\x04\x20\
     \x01(\tR\treplyToId\"%\n\x13SendMessageResponse\x12\x0e\n\x02id\x18\x01\
     \x20\x01(\tR\x02id2v\n\tMessaging\x12i\n\x0bSendMessage\x12\x1d.messagin\
@@ -488,28 +488,28 @@ static file_descriptor_proto_data: &'static [u8] = b"\
     \x06\0\x02\0\x04\x12\x04&\x10)\x12\n\x11\n\t\x06\0\x02\0\x04\xb0\xca\xbc\
     \"\x12\x04&\x10)\x12\n;\n\x02\x04\0\x12\x040\05\x01\x1a/*\n\x20Represent\
     s\x20a\x20message\x20send\x20to\x20a\x20far\x20end\x20node\n\n\n\n\x03\
-    \x04\0\x01\x12\x030\x08\x1a\nD\n\x04\x04\0\x02\0\x12\x031\x08\x17\"7\x20\
+    \x04\0\x01\x12\x030\x08\x1a\nD\n\x04\x04\0\x02\0\x12\x031\x08\x16\"7\x20\
     the\x20raw\x20message\x20itself\x20to\x20be\x20sent\x20to\x20the\x20far\
-    \x20end\x20node\n\n\x0c\n\x05\x04\0\x02\0\x05\x12\x031\x08\x0e\n\x0c\n\
-    \x05\x04\0\x02\0\x01\x12\x031\x0f\x12\n\x0c\n\x05\x04\0\x02\0\x03\x12\
-    \x031\x15\x16\nG\n\x04\x04\0\x02\x01\x12\x032\x08\x1a\":\x20The\x20publi\
-    c\x20key\x20of\x20the\x20far\x20end\x20lightning\x20node\x20running\x20I\
-    MP\n\n\x0c\n\x05\x04\0\x02\x01\x05\x12\x032\x08\x0e\n\x0c\n\x05\x04\0\
-    \x02\x01\x01\x12\x032\x0f\x15\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x032\x18\
-    \x19\nY\n\x04\x04\0\x02\x02\x12\x033\x08\x19\"L\x20Optional\x20satoshi\
-    \x20amount\x20to\x20send\x20along\x20with\x20the\x20message,\x20defaults\
-    \x20to\x201\x20sat.\n\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x033\x08\r\n\x0c\
-    \n\x05\x04\0\x02\x02\x01\x12\x033\x0e\x14\n\x0c\n\x05\x04\0\x02\x02\x03\
-    \x12\x033\x17\x18\nK\n\x04\x04\0\x02\x03\x12\x034\x08\x1f\">\x20Optional\
-    \x20ID\x20of\x20the\x20message\x20that\x20this\x20message\x20is\x20reply\
-    ing\x20to.\n\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x034\x08\x0e\n\x0c\n\x05\
-    \x04\0\x02\x03\x01\x12\x034\x0f\x1a\n\x0c\n\x05\x04\0\x02\x03\x03\x12\
-    \x034\x1d\x1e\n>\n\x02\x04\x01\x12\x04:\0<\x01\x1a2*\n\x20Represents\x20\
-    a\x20response\x20back\x20from\x20a\x20sent\x20message\n\n\n\n\x03\x04\
-    \x01\x01\x12\x03:\x08\x1b\n\"\n\x04\x04\x01\x02\0\x12\x03;\x08\x16\"\x15\
-    \x20returned\x20message\x20ID\n\n\x0c\n\x05\x04\x01\x02\0\x05\x12\x03;\
-    \x08\x0e\n\x0c\n\x05\x04\x01\x02\0\x01\x12\x03;\x0f\x11\n\x0c\n\x05\x04\
-    \x01\x02\0\x03\x12\x03;\x14\x15b\x06proto3\
+    \x20end\x20node\n\n\x0c\n\x05\x04\0\x02\0\x05\x12\x031\x08\r\n\x0c\n\x05\
+    \x04\0\x02\0\x01\x12\x031\x0e\x11\n\x0c\n\x05\x04\0\x02\0\x03\x12\x031\
+    \x14\x15\nG\n\x04\x04\0\x02\x01\x12\x032\x08\x1a\":\x20The\x20public\x20\
+    key\x20of\x20the\x20far\x20end\x20lightning\x20node\x20running\x20IMP\n\
+    \n\x0c\n\x05\x04\0\x02\x01\x05\x12\x032\x08\x0e\n\x0c\n\x05\x04\0\x02\
+    \x01\x01\x12\x032\x0f\x15\n\x0c\n\x05\x04\0\x02\x01\x03\x12\x032\x18\x19\
+    \nY\n\x04\x04\0\x02\x02\x12\x033\x08\x19\"L\x20Optional\x20satoshi\x20am\
+    ount\x20to\x20send\x20along\x20with\x20the\x20message,\x20defaults\x20to\
+    \x201\x20sat.\n\n\x0c\n\x05\x04\0\x02\x02\x05\x12\x033\x08\r\n\x0c\n\x05\
+    \x04\0\x02\x02\x01\x12\x033\x0e\x14\n\x0c\n\x05\x04\0\x02\x02\x03\x12\
+    \x033\x17\x18\nK\n\x04\x04\0\x02\x03\x12\x034\x08\x1f\">\x20Optional\x20\
+    ID\x20of\x20the\x20message\x20that\x20this\x20message\x20is\x20replying\
+    \x20to.\n\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x034\x08\x0e\n\x0c\n\x05\x04\
+    \0\x02\x03\x01\x12\x034\x0f\x1a\n\x0c\n\x05\x04\0\x02\x03\x03\x12\x034\
+    \x1d\x1e\n>\n\x02\x04\x01\x12\x04:\0<\x01\x1a2*\n\x20Represents\x20a\x20\
+    response\x20back\x20from\x20a\x20sent\x20message\n\n\n\n\x03\x04\x01\x01\
+    \x12\x03:\x08\x1b\n\"\n\x04\x04\x01\x02\0\x12\x03;\x08\x16\"\x15\x20retu\
+    rned\x20message\x20ID\n\n\x0c\n\x05\x04\x01\x02\0\x05\x12\x03;\x08\x0e\n\
+    \x0c\n\x05\x04\x01\x02\0\x01\x12\x03;\x0f\x11\n\x0c\n\x05\x04\x01\x02\0\
+    \x03\x12\x03;\x14\x15b\x06proto3\
 ";
 
 static file_descriptor_proto_lazy: ::protobuf::rt::LazyV2<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::rt::LazyV2::INIT;
